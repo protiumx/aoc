@@ -1,4 +1,4 @@
-package main
+package solutions
 
 import (
 	"bufio"
@@ -55,7 +55,7 @@ func partTwo() int {
 	return count
 }
 
-func main() {
-	fmt.Printf("Answer part one: %d\n", partOne())
-	fmt.Printf("Answer part two: %d\n", partTwo())
+func Show() {
+	fmt.Printf("- Answer part one: %d\n", partOne())
+	fmt.Printf("- Answer part two: %d\n", partTwo())
 }

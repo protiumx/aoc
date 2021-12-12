@@ -1,3 +1,3 @@
-module github.com/protiumx/aoc-2021
+module github.com/protiumx/aoc
 
 go 1.17
