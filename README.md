@@ -1,2 +1,2 @@
-# aoc-2021
-Advent of Code 2021 solutions
+# aoc
+Advent of Code solutions in `rust` and `go`.
