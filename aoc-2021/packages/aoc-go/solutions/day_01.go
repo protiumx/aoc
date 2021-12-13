@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func partOne() int {
+func d01_partOne() int {
 	file, _ := os.Open("../../input/day_01.in")
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
@@ -26,7 +26,7 @@ func partOne() int {
 	return count
 }
 
-func partTwo() int {
+func d01_partTwo() int {
 	content, _ := ioutil.ReadFile("../../input/day_01.in")
 	lines := strings.Split(string(content), "\n")
 	data := make([]int, len(lines))
@@ -55,7 +55,7 @@ func partTwo() int {
 	return count
 }
 
-func Show() {
-	fmt.Printf("- Answer part one: %d\n", partOne())
-	fmt.Printf("- Answer part two: %d\n", partTwo())
+func ShowD01() {
+	fmt.Printf("- Answer part one: %d\n", d01_partOne())
+	fmt.Printf("- Answer part two: %d\n", d01_partTwo())
 }

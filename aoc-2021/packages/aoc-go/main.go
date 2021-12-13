@@ -8,5 +8,8 @@ import (
 
 func main() {
 	fmt.Println("Day 01")
-	solutions.Show()
+	solutions.ShowD01()
+
+	fmt.Println("Day 02")
+	solutions.ShowD02()
 }
