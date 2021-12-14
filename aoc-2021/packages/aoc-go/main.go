@@ -12,4 +12,7 @@ func main() {
 
 	fmt.Println("Day 02")
 	solutions.ShowD02()
+
+	fmt.Println("Day 03")
+	solutions.ShowD03()
 }
