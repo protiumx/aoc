@@ -67,7 +67,6 @@ fn part_one() {
     {
         let mut boards = boards.clone();
         'moves: for m in &moves {
-            println!("move {}", *m);
             for board in boards.iter_mut() {
                 if board.mark(*m) {
                     println!("Part 1: {}", m * board.remaining_sum());
