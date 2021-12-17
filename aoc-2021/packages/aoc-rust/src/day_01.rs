@@ -15,7 +15,7 @@ fn part_one() -> i32 {
         }
         prev = d;
     }
-    return count;
+    count
 }
 
 fn part_two() -> i32 {
@@ -38,7 +38,7 @@ fn part_two() -> i32 {
         prev_sum = sum;
         sum = 0;
     }
-    return count;
+    count
 }
 
 pub fn show() {

@@ -63,7 +63,7 @@ fn part_two() -> i32 {
             break;
         }
     }
-    let mut co2_data = data.clone();
+    let mut co2_data = data;
     for i in 0..cols {
         let co2_half = (co2_data.len() as u32 + 1) / 2;
         let most_common = if co2_data
