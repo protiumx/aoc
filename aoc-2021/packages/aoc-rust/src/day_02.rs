@@ -35,6 +35,6 @@ fn part_two() -> i32 {
     data.0 * data.1
 }
 pub fn show() {
-    println!("- Answer part one: {}", part_one());
-    println!("- Answer part two: {}", part_two());
+    println!("- Part 1: {}", part_one());
+    println!("- Part 2: {}", part_two());
 }

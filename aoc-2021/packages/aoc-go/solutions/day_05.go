@@ -132,7 +132,7 @@ func ShowD05() {
 		}
 	}
 
-	printBoard(board)
+	//printBoard(board)
 	fmt.Printf("Part 1: %d\n", count)
 	for _, l := range lines {
 		if l.orientation() != diagonal45 {
@@ -165,6 +165,6 @@ func ShowD05() {
 
 	}
 
-	printBoard(board)
+	//printBoard(board)
 	fmt.Printf("Part 2: %d\n", count)
 }

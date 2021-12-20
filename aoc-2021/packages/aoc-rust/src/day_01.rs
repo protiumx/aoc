@@ -42,6 +42,6 @@ fn part_two() -> i32 {
 }
 
 pub fn show() {
-    println!("- Part one answer: {}", part_one());
-    println!("- Part two answer: {}", part_two());
+    println!("- Part 1: {}", part_one());
+    println!("- Part 2: {}", part_two());
 }

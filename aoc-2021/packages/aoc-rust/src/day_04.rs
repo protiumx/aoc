@@ -69,7 +69,7 @@ fn part_one() {
         'moves: for m in &moves {
             for board in boards.iter_mut() {
                 if board.mark(*m) {
-                    println!("Part 1: {}", m * board.remaining_sum());
+                    println!("- Part 1: {}", m * board.remaining_sum());
                     break 'moves;
                 }
             }
@@ -86,7 +86,7 @@ fn part_one() {
             }
         }
 
-        println!("Part 2: {}", last_result);
+        println!("- Part 2: {}", last_result);
     }
 }
 

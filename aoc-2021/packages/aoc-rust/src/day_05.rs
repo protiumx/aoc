@@ -115,7 +115,7 @@ pub fn show() {
         },
     );
     //print_board(&board);
-    println!("Part 1: {}", count);
+    println!("- Part 1: {}", count);
 
     let (board, count) = lines
         .iter()
@@ -141,5 +141,5 @@ pub fn show() {
             return (board, count);
         });
     //print_board(&board);
-    println!("Part 2: {}", count);
+    println!("- Part 2: {}", count);
 }
