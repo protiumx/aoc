@@ -7,6 +7,62 @@ fn project(segment: &str) -> u32 {
         .fold(0, |acc, bc| acc + bc);
 }
 
+fn contains(a: u32, b: u32) -> bool {
+    return a & b == b;
+}
+
+fn missing(a: u32, b: u32) -> u32 {
+    (a ^ b).count_ones()
+}
+
+fn create_contain(b: u32) -> Box<dyn Fn(&u32) -> bool> {
+    return Box::new(move |a| {
+        println!("create_contain  :: a: {:#010b} b: {:#010b}", a, b);
+        return contains(*a, b);
+    });
+}
+
+fn create_missing(b: u32, count: u32) -> Box<dyn Fn(&u32) -> bool> {
+    return Box::new(move |a| {
+        println!(
+            "create_missing :: a: {:#010b} b: {:#010b} count {}",
+            a,
+            b,
+            missing(*a, b)
+        );
+        return missing(*a, b) == count;
+    });
+}
+
+fn remove(list: Vec<u32>, f: Box<dyn Fn(&u32) -> bool>) -> (Vec<u32>, u32) {
+    println!("list {:?}", list);
+    let (idx, matched) = list
+        .iter()
+        .enumerate()
+        .filter(|it| {
+            return f(it.1);
+        })
+        .take(1)
+        .collect::<Vec<(usize, &u32)>>()[0];
+
+    let mut list = list.clone();
+    list.remove(idx);
+    return (list, *matched);
+}
+
+fn get_value(proj_val: u32, numbers: &[u32; 10]) -> usize {
+    let (idx, _) = numbers
+        .iter()
+        .enumerate()
+        .filter(|it| {
+            let (_, x) = it;
+            return **x == proj_val;
+        })
+        .collect::<Vec<(usize, &u32)>>()[0];
+
+    return idx;
+}
+
 pub fn show() {
     let data = include_str!("../../../input/day_08.in")
         .lines()
@@ -31,4 +87,82 @@ pub fn show() {
         });
 
     println!("- Part 1: {}", data);
+
+    let count = include_str!("../../../input/day_08.in")
+        .lines()
+        .fold(0, |acc, line| {
+            let (input, output) = line.trim().split_once(" | ").unwrap();
+            let input = input.split(" ");
+            let mut numbers: [u32; 10] = input.clone().fold([0; 10], |mut numbers, seg| {
+                match seg.len() {
+                    2 => numbers[1] = project(seg),
+                    7 => numbers[8] = project(seg),
+                    4 => numbers[4] = project(seg),
+                    3 => numbers[7] = project(seg),
+                    _ => {}
+                }
+                numbers
+            });
+
+            //println!("1 : {:#010b}", numbers[1]);
+            //println!("8 : {:#010b}", numbers[8]);
+            //println!("4 : {:#010b}", numbers[4]);
+            //println!("3 : {:#010b}", numbers[7]);
+
+            let group5: Vec<u32> = input
+                .clone()
+                .filter(|seg| &seg.len() == &5)
+                .map(project)
+                .collect();
+            let group6: Vec<u32> = input.filter(|seg| &seg.len() == &6).map(project).collect();
+
+            //group5.iter().for_each(|x| {
+            //println!("group5 : {:#010b}", x);
+            //});
+            //group6.iter().for_each(|x| {
+            //println!("group6 : {:#010b}", x);
+            //});
+
+            let (group6, nine) = remove(group6, create_contain(numbers[4]));
+            //println!(
+            //"FOUND NINE : contains 4 {:#010b} U {:#010b}",
+            //nine, numbers[4]
+            //);
+            numbers[9] = nine;
+
+            // find 2
+            let (group5, two) = remove(group5, create_missing(numbers[9], 3));
+            //println!(
+            //"FOUND TWO : from group5 {:#010b} missing 2 {:#010b}",
+            //two, nine
+            //);
+            numbers[2] = two;
+
+            // find 5
+            let (group5, five) = remove(group5, create_missing(numbers[7], 4));
+            numbers[5] = five;
+            //println!("five : {:#010b}", five);
+            numbers[3] = group5[0];
+
+            //println!("FINDING SIX");
+            let (group6, six) = remove(group6, create_contain(numbers[5]));
+            numbers[6] = six;
+            //println!("six : {:#010b}", six);
+
+            //println!("remainder from six");
+            numbers[0] = group6[0];
+
+            //println!("{:?}", numbers);
+            let output: Vec<u32> = output.split(" ").map(str::trim).map(project).collect();
+
+            let res = output.iter().rev().enumerate().fold(0, |acc, it| {
+                let (idx, val) = it;
+                let val_idx = get_value(*val, &numbers);
+                //println!("val: {} :: val_idx {}", val, val_idx);
+                return acc + 10_u32.pow(idx as u32) * val_idx as u32;
+            });
+            return res + acc;
+        });
+
+    println!("- Part 2: {}", count);
 }
