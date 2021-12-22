@@ -1,6 +1,6 @@
 use std::fs::File;
 use std::io::{prelude::*, BufReader};
-
+// cacak no spelllsls
 fn part_one() -> i32 {
     let mut data = BufReader::new(File::open("../../input/day_01.in").unwrap())
         .lines()

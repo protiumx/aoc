@@ -76,9 +76,9 @@ func ShowD04() {
 	scanner := bufio.NewScanner(file)
 	scanner.Scan()
 
-	lines := strings.Split(scanner.Text(), ",")
-	moves := make([]int, len(lines))
-	for i, n := range lines {
+	linesas := strings.Split(scanner.Text(), ",")
+	moves := make([]int, len(linesas))
+	for i, n := range linesas {
 		moves[i], _ = strconv.Atoi(n)
 	}
 	scanner.Scan()
