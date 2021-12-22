@@ -1,3 +1,5 @@
+// based on https://github.com/ThePrimeagen/aoc/blob/2021/src/day8_2.rs
+
 fn project(segment: &str) -> u32 {
     return segment
         .chars()
@@ -104,11 +106,6 @@ pub fn show() {
                 numbers
             });
 
-            //println!("1 : {:#010b}", numbers[1]);
-            //println!("8 : {:#010b}", numbers[8]);
-            //println!("4 : {:#010b}", numbers[4]);
-            //println!("3 : {:#010b}", numbers[7]);
-
             let group5: Vec<u32> = input
                 .clone()
                 .filter(|seg| &seg.len() == &5)
@@ -116,49 +113,27 @@ pub fn show() {
                 .collect();
             let group6: Vec<u32> = input.filter(|seg| &seg.len() == &6).map(project).collect();
 
-            //group5.iter().for_each(|x| {
-            //println!("group5 : {:#010b}", x);
-            //});
-            //group6.iter().for_each(|x| {
-            //println!("group6 : {:#010b}", x);
-            //});
-
             let (group6, nine) = remove(group6, create_contain(numbers[4]));
-            //println!(
-            //"FOUND NINE : contains 4 {:#010b} U {:#010b}",
-            //nine, numbers[4]
-            //);
             numbers[9] = nine;
 
-            // find 2
             let (group5, two) = remove(group5, create_missing(numbers[9], 3));
-            //println!(
-            //"FOUND TWO : from group5 {:#010b} missing 2 {:#010b}",
-            //two, nine
-            //);
             numbers[2] = two;
 
             // find 5
             let (group5, five) = remove(group5, create_missing(numbers[7], 4));
             numbers[5] = five;
-            //println!("five : {:#010b}", five);
             numbers[3] = group5[0];
 
-            //println!("FINDING SIX");
             let (group6, six) = remove(group6, create_contain(numbers[5]));
             numbers[6] = six;
-            //println!("six : {:#010b}", six);
 
-            //println!("remainder from six");
             numbers[0] = group6[0];
 
-            //println!("{:?}", numbers);
             let output: Vec<u32> = output.split(" ").map(str::trim).map(project).collect();
 
             let res = output.iter().rev().enumerate().fold(0, |acc, it| {
                 let (idx, val) = it;
                 let val_idx = get_value(*val, &numbers);
-                //println!("val: {} :: val_idx {}", val, val_idx);
                 return acc + 10_u32.pow(idx as u32) * val_idx as u32;
             });
             return res + acc;

@@ -27,4 +27,7 @@ func main() {
 
 	fmt.Println("Day 07")
 	solutions.ShowD07()
+
+	fmt.Println("Day 08")
+	solutions.ShowD08()
 }
