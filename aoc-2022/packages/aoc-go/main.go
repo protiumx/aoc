@@ -17,6 +17,10 @@ func main() {
 	fmt.Printf("day_02.2 answer: game points %d\n", solutions.Day_02_02(string(input)))
 
 	input, _ = ioutil.ReadFile("../../input/day_03.in")
-	fmt.Printf("day_03.1 answer: game points %d\n", solutions.Day_03_01(string(input)))
-	fmt.Printf("day_03.2 answer: game points %d\n", solutions.Day_03_02(string(input)))
+	fmt.Printf("day_03.1 answer: total priority %d\n", solutions.Day_03_01(string(input)))
+	fmt.Printf("day_03.2 answer: common in 3 groups  %d\n", solutions.Day_03_02(string(input)))
+
+	input, _ = ioutil.ReadFile("../../input/day_04.in")
+	fmt.Printf("day_04.1 answer: pairs contained %d\n", solutions.Day_04_01(string(input)))
+	fmt.Printf("day_04.2 answer: pairs overlapped %d\n", solutions.Day_04_02(string(input)))
 }
