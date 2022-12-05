@@ -23,4 +23,8 @@ func main() {
 	input, _ = ioutil.ReadFile("../../input/day_04.in")
 	fmt.Printf("day_04.1 answer: pairs contained %d\n", solutions.Day_04_01(string(input)))
 	fmt.Printf("day_04.2 answer: pairs overlapped %d\n", solutions.Day_04_02(string(input)))
+
+	input, _ = ioutil.ReadFile("../../input/day_05.in")
+	fmt.Printf("day_05.1 answer: pairs contained %s\n", solutions.Day_05_01(string(input)))
+	fmt.Printf("day_05.2 answer: pairs overlapped %s\n", solutions.Day_05_02(string(input)))
 }
