@@ -33,6 +33,6 @@ func main() {
 	fmt.Printf("day_06.2 answer: pairs overlapped %d\n", solutions.Day_06_02(string(input)))
 
 	input, _ = ioutil.ReadFile("../../input/day_07.in")
-	fmt.Printf("day_07.1 answer: start of packet at %d\n", solutions.Day_07_01(string(input)))
-	fmt.Printf("day_07.2 answer: pairs overlapped %d\n", solutions.Day_07_02(string(input)))
+	fmt.Printf("day_07.1 answer: total size of directories %d\n", solutions.Day_07_01(string(input)))
+	fmt.Printf("day_07.2 answer: size of directory to delete %d\n", solutions.Day_07_02(string(input)))
 }
