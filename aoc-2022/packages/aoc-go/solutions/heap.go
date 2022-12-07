@@ -17,7 +17,7 @@ func NewHeap(max int, compare func(a, b int) bool) Heap {
 func (h *Heap) insert(k int) {
 	h.items = append(h.items, k)
 	h.heapify_up(len(h.items) - 1)
-	if len(h.items) > h.max {
+	if h.max > 0 && len(h.items) > h.max {
 		h.pop()
 	}
 }
