@@ -81,7 +81,7 @@ func Day_07_02(input string) int {
 	freeSpace := devizeSize - root.size
 	requiredSpace := updateSize - freeSpace
 
-	// pop sizes until there is enough space
+	// pop sizes until there is a dir big enough
 	lastSize := 0
 	for len(dirSizes.items) > 0 {
 		if lastSize > requiredSpace {

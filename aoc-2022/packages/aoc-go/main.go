@@ -35,4 +35,8 @@ func main() {
 	input, _ = ioutil.ReadFile("../../input/day_07.in")
 	fmt.Printf("day_07.1 answer: total size of directories %d\n", solutions.Day_07_01(string(input)))
 	fmt.Printf("day_07.2 answer: size of directory to delete %d\n", solutions.Day_07_02(string(input)))
+
+	input, _ = ioutil.ReadFile("../../input/day_08.in")
+	fmt.Printf("day_08.1 answer: total visible trees %d\n", solutions.Day_08_01(string(input)))
+	fmt.Printf("day_08.2 answer: max score %d\n", solutions.Day_08_02(string(input)))
 }
