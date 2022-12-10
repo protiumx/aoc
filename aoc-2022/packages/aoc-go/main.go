@@ -41,6 +41,10 @@ func main() {
 	fmt.Printf("day_08.2 answer: max score %d\n", solutions.Day_08_02(string(input)))
 
 	input, _ = ioutil.ReadFile("../../input/day_09.in")
-	fmt.Printf("day_09.1 answer: total of unique positions %d\n", solutions.Day_09_01(string(input)))
-	fmt.Printf("day_09.2 answer: max score %d\n", solutions.Day_09_02(string(input)))
+	fmt.Printf("day_09.1 answer: total unique tail positions %d\n", solutions.Day_09_01(string(input)))
+	fmt.Printf("day_09.2 answer: total unique tail positions %d\n", solutions.Day_09_02(string(input)))
+
+	input, _ = ioutil.ReadFile("../../input/day_10.in")
+	fmt.Printf("day_10.1 answer: total signal strength %d\n", solutions.Day_10_01(string(input)))
+	fmt.Printf("day_10.2 answer: max score \n%s\n", solutions.Day_10_02(string(input)))
 }
