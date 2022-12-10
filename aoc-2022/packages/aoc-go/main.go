@@ -39,4 +39,8 @@ func main() {
 	input, _ = ioutil.ReadFile("../../input/day_08.in")
 	fmt.Printf("day_08.1 answer: total visible trees %d\n", solutions.Day_08_01(string(input)))
 	fmt.Printf("day_08.2 answer: max score %d\n", solutions.Day_08_02(string(input)))
+
+	input, _ = ioutil.ReadFile("../../input/day_09.in")
+	fmt.Printf("day_09.1 answer: total of unique positions %d\n", solutions.Day_09_01(string(input)))
+	fmt.Printf("day_09.2 answer: max score %d\n", solutions.Day_09_02(string(input)))
 }
