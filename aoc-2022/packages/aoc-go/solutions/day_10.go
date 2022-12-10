@@ -80,9 +80,9 @@ OP:
 
 	var out strings.Builder
 	for i, line := range screen {
-		out.WriteString(string(line[:]))
+		out.Write(line[:])
 		if i < screenRows-1 {
-			out.WriteString("\n")
+			out.WriteByte('\n')
 		}
 	}
 
