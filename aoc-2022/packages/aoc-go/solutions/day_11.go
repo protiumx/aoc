@@ -46,7 +46,8 @@ func calculateMonkeyBusiness(input string, maxRounds, reliefFactor int64) int64 
 		monkeys = append(monkeys, &current)
 	}
 
-	// calculate least common multiplier
+	// all multipliers and divisors are prime numbers
+	// calculate lowest common multiplier
 	lcm := int64(1)
 	for _, m := range monkeys {
 		lcm *= m.testDivisibleBy
@@ -68,8 +69,12 @@ func calculateMonkeyBusiness(input string, maxRounds, reliefFactor int64) int64 
 					worryLevel = l + r
 				}
 
-				// modulo congruence is preserved for any multiplication or addition operations
-				worryLevel %= lcm
+				if reliefFactor == 1 {
+					// modulo congruence is preserved for any multiplication or addition operations
+					// If a≡b(mod m), then a+c≡b+c(mod m)
+					// If a≡b(mod m), then ax≡bx(mod mx)
+					worryLevel %= lcm
+				}
 				worryLevel /= reliefFactor
 
 				throwTo := m.consequenceThrow
