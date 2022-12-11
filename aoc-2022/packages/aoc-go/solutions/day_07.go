@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func calculateDirSizes(input string) (*Heap, *FsNode) {
+func calculateDirSizes(input string) (*Heap[int], *FsNode) {
 	// Assume every directory is visited only once
 	lines := strings.Split(input, "\n")
 	root := NewNode("/", true)

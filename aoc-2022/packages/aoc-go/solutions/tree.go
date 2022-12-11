@@ -26,7 +26,7 @@ func (n *FsNode) findChild(name string) *FsNode {
 }
 
 // DFS
-func (n *FsNode) getDirSize(h *Heap) int {
+func (n *FsNode) getDirSize(h *Heap[int]) int {
 	if !n.dir {
 		return n.size
 	}
