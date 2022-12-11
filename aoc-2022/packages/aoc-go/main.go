@@ -47,4 +47,8 @@ func main() {
 	input, _ = ioutil.ReadFile("../../input/day_10.in")
 	fmt.Printf("day_10.1 answer: total signal strength %d\n", solutions.Day_10_01(string(input)))
 	fmt.Printf("day_10.2 answer: max score \n%s\n", solutions.Day_10_02(string(input)))
+
+	input, _ = ioutil.ReadFile("../../input/day_11.in")
+	fmt.Printf("day_11.1 answer: monkey business %d\n", solutions.Day_11_01(string(input)))
+	fmt.Printf("day_11.2 answer: crazy monkey business \n%d\n", solutions.Day_11_02(string(input)))
 }
