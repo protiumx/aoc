@@ -8,39 +8,40 @@ import (
 )
 
 func findShortestPathBFS(heightMap map[image.Point]byte, start, end image.Point, checkStop func(p image.Point) bool) int {
-	queue := []image.Point{start}
-	steps := make(map[image.Point]int)
-	steps[start] = 0
+	type Node struct {
+		pos   image.Point
+		steps int
+	}
+
+	queue := []Node{
+		{start, 0},
+	}
 	cycles := 0
 	for len(queue) > 0 {
 		current := queue[0]
 		queue = queue[1:]
 		cycles++
 		// visited
-		if heightMap[current] == '-' {
+		if heightMap[current.pos] == '-' {
 			continue
 		}
 
-		if checkStop(current) {
-			fmt.Println("found in cycles", cycles)
-			return steps[current]
-		}
-
 		for _, dir := range MatrixDirections {
-			next := current.Add(dir)
+			next := current.pos.Add(dir)
 			nextHeight, ok := heightMap[next]
-			if !ok || nextHeight > heightMap[current]+1 {
+			if !ok || nextHeight < heightMap[current.pos]-1 {
 				continue
 			}
 
-			queue = append(queue, next)
-			if _, ok := steps[next]; !ok {
-				steps[next] = 0
+			if checkStop(next) {
+				fmt.Println("found in cycles", cycles)
+				return current.steps + 1
 			}
-			steps[next] = steps[current] + 1
+
+			queue = append(queue, Node{next, current.steps + 1})
 		}
 
-		heightMap[current] = '-'
+		heightMap[current.pos] = '-'
 	}
 
 	return math.MaxInt
@@ -48,18 +49,18 @@ func findShortestPathBFS(heightMap map[image.Point]byte, start, end image.Point,
 
 // Find shortest path descending with Dijkstra
 func findShortestPath(heightMap map[image.Point]byte, start, end image.Point, checkStop func(p image.Point) bool) int {
-	// steps from every to the end
-	steps := make(map[image.Point]int)
-	steps[start] = 0
-
 	type Node struct {
-		steps    int
+		prioroty int
 		position image.Point
 	}
 
-	// prioritize positions with less steps
-	pq := NewHeap(-1, func(a, b Node) bool { return a.steps > b.steps })
+	// prioritize positions with less steps from the start
+	pq := NewHeap(-1, func(a, b Node) bool { return a.prioroty > b.prioroty })
 	pq.Push(Node{0, start})
+
+	// steps of each position from the start to the position at the top of the queue
+	steps := make(map[image.Point]int)
+	steps[start] = 0
 
 	cycles := 0
 
@@ -67,11 +68,6 @@ func findShortestPath(heightMap map[image.Point]byte, start, end image.Point, ch
 		cycles++
 		current := pq.Pop()
 		currentHeight := heightMap[current.position]
-
-		if checkStop(current.position) {
-			fmt.Printf("found in %d cycles\n", cycles)
-			return steps[current.position]
-		}
 
 		for _, dir := range MatrixDirections {
 			next := current.position.Add(dir)
@@ -81,10 +77,15 @@ func findShortestPath(heightMap map[image.Point]byte, start, end image.Point, ch
 				continue
 			}
 
+			if checkStop(next) {
+				fmt.Printf("found in %d cycles\n", cycles)
+				return steps[current.position] + 1
+			}
+
 			newSteps := steps[current.position] + 1
 			if prevSteps, ok := steps[next]; !ok || newSteps < prevSteps {
 				steps[next] = newSteps
-				pq.Push(Node{steps: newSteps, position: next})
+				pq.Push(Node{prioroty: newSteps, position: next})
 			}
 
 		}
@@ -94,7 +95,7 @@ func findShortestPath(heightMap map[image.Point]byte, start, end image.Point, ch
 
 func parse(input string) (map[image.Point]byte, image.Point, image.Point) {
 	elevationMap := make(map[image.Point]byte)
-	var start, end image.Point
+	var SPosition, EPos image.Point
 
 	for i, row := range strings.Split(input, "\n") {
 		if row == "" {
@@ -106,26 +107,26 @@ func parse(input string) (map[image.Point]byte, image.Point, image.Point) {
 			elevationMap[pos] = row[j]
 
 			if row[j] == 'S' {
-				start = pos
+				SPosition = pos
 				elevationMap[pos] = 'a'
 			}
 
 			if row[j] == 'E' {
-				end = pos
+				EPos = pos
 				elevationMap[pos] = 'z'
 			}
 		}
 	}
-	return elevationMap, start, end
+	return elevationMap, SPosition, EPos
 }
 
 func Day_12_01(input string) int {
-	heightsMap, start, end := parse(input)
-	return findShortestPath(heightsMap, end, start, func(p image.Point) bool { return p == start })
+	heightsMap, SPos, EPos := parse(input)
+	return findShortestPath(heightsMap, EPos, SPos, func(p image.Point) bool { return p == SPos })
 }
 
 func Day_12_02(input string) int {
-	heightsMap, start, end := parse(input)
+	heightsMap, SPos, EPos := parse(input)
 	// stops at the first 'a'
-	return findShortestPath(heightsMap, end, start, func(p image.Point) bool { return heightsMap[p] == 'a' })
+	return findShortestPath(heightsMap, EPos, SPos, func(p image.Point) bool { return heightsMap[p] == 'a' })
 }

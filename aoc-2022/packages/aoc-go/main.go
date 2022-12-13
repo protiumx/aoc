@@ -50,9 +50,9 @@ func main() {
 
 	input, _ = ioutil.ReadFile("../../input/day_11.in")
 	fmt.Printf("day_11.1 answer: monkey business %d\n", solutions.Day_11_01(string(input)))
-	fmt.Printf("day_11.2 answer: crazy monkey business \n%d\n", solutions.Day_11_02(string(input)))
+	fmt.Printf("day_11.2 answer: crazy monkey business %d\n", solutions.Day_11_02(string(input)))
 
 	input, _ = ioutil.ReadFile("../../input/day_12.in")
 	fmt.Printf("day_12.1 answer: minimum steps %d\n", solutions.Day_12_01(string(input)))
-	fmt.Printf("day_12.2 answer: crazy monkey business \n%d\n", solutions.Day_12_02(string(input)))
+	fmt.Printf("day_12.2 answer: minimum steps to 'a' position %d\n", solutions.Day_12_02(string(input)))
 }
