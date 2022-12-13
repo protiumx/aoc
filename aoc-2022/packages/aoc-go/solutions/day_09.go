@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-var ropeDirections = map[string]image.Point{
+var MatrixDirections = map[string]image.Point{
 	"U": {0, 1},
 	"D": {0, -1},
 	"R": {1, 0},
@@ -34,7 +34,7 @@ func tailPositions(input string, ropeSize int) int {
 
 		parts := strings.Fields(command)
 		steps, _ := strconv.Atoi(parts[1])
-		dir := ropeDirections[parts[0]]
+		dir := MatrixDirections[parts[0]]
 		for s := 0; s < steps; s++ {
 			positions[headIndex] = positions[headIndex].Add(dir)
 

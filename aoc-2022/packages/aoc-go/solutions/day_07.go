@@ -27,7 +27,7 @@ func calculateDirSizes(input string) (*Heap[int], *FsNode) {
 			// process cd command
 			if words[2] == ".." {
 				d, _ := stack.Pop()
-				dirSizes.insert(d.size)
+				dirSizes.Push(d.size)
 
 				currentNode, _ = stack.Peek()
 				currentNode.size += d.size
@@ -51,10 +51,10 @@ func calculateDirSizes(input string) (*Heap[int], *FsNode) {
 	// empty the stack except for the root dir
 	for stack.Size() > 1 {
 		p, _ := stack.Pop()
-		dirSizes.insert(p.size)
+		dirSizes.Push(p.size)
 		root.size += p.size
 	}
-	dirSizes.insert(root.size)
+	dirSizes.Push(root.size)
 	return &dirSizes, &root
 }
 
@@ -64,7 +64,7 @@ func Day_07_01(input string) int {
 
 	total := 0
 	for len(dirSizes.items) > 0 {
-		size := dirSizes.pop()
+		size := dirSizes.Pop()
 		if size > maxSize {
 			break
 		}
@@ -87,7 +87,7 @@ func Day_07_02(input string) int {
 		if lastSize > requiredSpace {
 			break
 		}
-		lastSize = dirSizes.pop()
+		lastSize = dirSizes.Pop()
 	}
 
 	return lastSize

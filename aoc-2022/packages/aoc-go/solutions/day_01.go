@@ -35,7 +35,7 @@ func Day_01_02(input string) int {
 	current := 0
 	for i, line := range lines {
 		if line == "" || i == len(lines)-1 {
-			h.insert(current)
+			h.Push(current)
 			current = 0
 			continue
 		}
@@ -49,7 +49,7 @@ func Day_01_02(input string) int {
 
 	max := 0
 	for i := 0; i < 3; i++ {
-		max += h.pop()
+		max += h.Pop()
 	}
 
 	return max

@@ -36,7 +36,7 @@ func (n *FsNode) getDirSize(h *Heap[int]) int {
 		size += c.getDirSize(h)
 	}
 	n.size = size
-	h.insert(size)
+	h.Push(size)
 	return size
 }
 
