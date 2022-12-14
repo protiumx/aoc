@@ -59,4 +59,8 @@ func main() {
 	input, _ = ioutil.ReadFile("../../input/day_13.in")
 	fmt.Printf("day_13.1 answer: count of ordered pairs indexes %d\n", solutions.Day_13_01(string(input)))
 	fmt.Printf("day_13.2 answer: decoder key %d\n", solutions.Day_13_02(string(input)))
+
+	input, _ = ioutil.ReadFile("../../input/day_14.in")
+	fmt.Printf("day_14.1 answer: dropped sand %d\n", solutions.Day_14_01(string(input)))
+	fmt.Printf("day_14.2 answer: dropped sand %d\n", solutions.Day_14_02(string(input)))
 }
