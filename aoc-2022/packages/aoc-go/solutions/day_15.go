@@ -4,6 +4,7 @@ import (
 	"image"
 	"math"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -69,6 +70,8 @@ func Day_15_02(input string, maxArea int) int {
 	sensors, _, _ := parseSensors(input)
 	currentPosition := image.Pt(0, 0)
 	currentSensor := Sensor{}
+
+	sort.Slice(sensors, func(i, j int) bool { return sensors[i].radious > sensors[j].radious })
 
 	for {
 		isCoveredPosition := false
