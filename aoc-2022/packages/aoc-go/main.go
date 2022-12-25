@@ -72,8 +72,12 @@ func main() {
 	// fmt.Printf("day_16.1 answer: covered positions at row 2000000 %d\n", solutions.Day_16_01(string(input)))
 	// fmt.Printf("day_16.2 answer: tuning frequency is %d\n", solutions.Day_16_02(string(input), 4000000))
 
-	input, _ = ioutil.ReadFile("../../input/day_17.in")
-	fmt.Printf("day_17.1 answer: high after 2023 rocks %d\n", solutions.Day_17(string(input), 2023))
-	fmt.Printf("day_17.2 answer: high after 1000000000000 rocks %d\n", solutions.Day_17(
-		string(input), 1_000_000_000_000))
+	// input, _ = ioutil.ReadFile("../../input/day_17.in")
+	// fmt.Printf("day_17.1 answer: high after 2023 rocks %d\n", solutions.Day_17(string(input), 2023))
+	// fmt.Printf("day_17.2 answer: high after 1000000000000 rocks %d\n", solutions.Day_17(
+	// 	string(input), 1_000_000_000_000))
+
+	input, _ = ioutil.ReadFile("../../input/day_18.in")
+	fmt.Printf("day_18.1 answer: lava surface area is %d\n", solutions.Day_18_01(string(input)))
+	fmt.Printf("day_18.2 answer: exterior surface area is %d\n", solutions.Day_18_02(string(input)))
 }

@@ -1,5 +1,29 @@
 package solutions
 
+import (
+	"fmt"
+	"math/bits"
+)
+
+func unique_sunbstring(input string, size int) int {
+	set := uint(0)
+	for i := 0; i < len(input); i++ {
+		// will have all bytes for a unique string
+		set ^= 1 << (input[i] - 'a')
+
+		if i >= size {
+			// remove the last character out of the window
+			set ^= 1 << (input[i-size] - 'a')
+		}
+
+		if bits.OnesCount(set) == size {
+			fmt.Printf("%032b\n", set)
+			return i + 1
+		}
+	}
+	return -1
+}
+
 func uniqueSubStringIndex(input string, size int) int {
 	// assuming input is a-z
 	lastSeen := [26]int{}
@@ -24,7 +48,7 @@ func uniqueSubStringIndex(input string, size int) int {
 }
 
 func Day_06_01(input string) int {
-	return uniqueSubStringIndex(input, 4)
+	return unique_sunbstring(input, 4)
 }
 
 func Day_06_02(input string) int {
