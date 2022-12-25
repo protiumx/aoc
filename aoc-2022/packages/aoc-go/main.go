@@ -64,7 +64,16 @@ func main() {
 	// fmt.Printf("day_14.1 answer: dropped sand %d\n", solutions.Day_14_01(string(input)))
 	// fmt.Printf("day_14.2 answer: dropped sand %d\n", solutions.Day_14_02(string(input)))
 
-	input, _ = ioutil.ReadFile("../../input/day_15.in")
-	fmt.Printf("day_15.1 answer: covered positions at row 2000000 %d\n", solutions.Day_15_01(string(input), 2000000))
-	fmt.Printf("day_15.2 answer: tuning frequency is %d\n", solutions.Day_15_02(string(input), 4000000))
+	// input, _ = ioutil.ReadFile("../../input/day_15.in")
+	// fmt.Printf("day_15.1 answer: covered positions at row 2000000 %d\n", solutions.Day_15_01(string(input), 2000000))
+	// fmt.Printf("day_15.2 answer: tuning frequency is %d\n", solutions.Day_15_02(string(input), 4000000))
+
+	// input, _ = ioutil.ReadFile("../../input/day_16.in")
+	// fmt.Printf("day_16.1 answer: covered positions at row 2000000 %d\n", solutions.Day_16_01(string(input)))
+	// fmt.Printf("day_16.2 answer: tuning frequency is %d\n", solutions.Day_16_02(string(input), 4000000))
+
+	input, _ = ioutil.ReadFile("../../input/day_17.in")
+	fmt.Printf("day_17.1 answer: high after 2023 rocks %d\n", solutions.Day_17(string(input), 2023))
+	fmt.Printf("day_17.2 answer: high after 1000000000000 rocks %d\n", solutions.Day_17(
+		string(input), 1_000_000_000_000))
 }
