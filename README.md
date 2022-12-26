@@ -1,2 +1,2 @@
-# aoc
-Advent of Code solutions in `rust` and `go`.
+# advent of code
+Solutions in `rust` and `go`.

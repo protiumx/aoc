@@ -1,3 +1,3 @@
-module github.com/protiumx/aoc
+module protiumx.dev/aoc
 
-go 1.17
+go 1.19
