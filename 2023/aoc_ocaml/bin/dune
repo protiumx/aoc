@@ -1,0 +1,4 @@
+(executable
+ (public_name d01)
+ (name d01)
+ (libraries AOC fmt))
