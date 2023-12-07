@@ -5,9 +5,7 @@ let part_1 =
   List.fold lines ~init:0 ~f:(fun acc line ->
       let chars = String.to_list line in
       let numbers = List.filter chars ~f:Char.is_digit in
-      let number =
-        Fmt.str "%c%c" (List.hd_exn numbers) (List.last_exn numbers)
-      in
+      let number = Fmt.str "%c%c" (List.hd_exn numbers) (List.last_exn numbers) in
       acc + Int.of_string number)
   |> Fmt.pr "part 1: %d\n"
 
@@ -33,8 +31,7 @@ let rec find_digits str pos win_size =
   else
     (* don't bother with bigger strings *)
     match pos + win_size > len || win_size > max_win with
-    | true ->
-        find_digits str (pos + 1) min_win (* next pos and restart window *)
+    | true -> find_digits str (pos + 1) min_win (* next pos and restart window *)
     | false -> (
         let c = str.[pos] in
         if Char.is_digit c then c :: find_digits str (pos + 1) win_size
