@@ -3,6 +3,7 @@ open Core
 let lines = AOC.read_lines "input/d03.in"
 let matrix = List.map lines ~f:String.to_list
 let rows, cols = AOC.matrix_size matrix
+let in_bounds x y = AOC.matrix_in_bounds rows cols x y
 
 module IntSet = Stdlib.Set.Make (Int)
 module Hashtbl = Stdlib.Hashtbl
@@ -22,7 +23,7 @@ let part_1 =
             has_part
             || List.fold AOC.directions ~init:false ~f:(fun valid (i, j) ->
                    let row, col = (x + i, y + j) in
-                   if row < 0 || row >= rows || col < 0 || col >= cols then valid
+                   if not (in_bounds row col) then valid
                    else
                      match AOC.matrix_nth matrix row col with
                      | '.' | '0' .. '9' -> valid
@@ -65,7 +66,7 @@ let part_2 =
             let nearest_gear =
               List.fold AOC.directions ~init:None ~f:(fun op (i, j) ->
                   let row, col = (x + i, y + j) in
-                  if row < 0 || row >= rows || col < 0 || col >= cols then op
+                  if not (in_bounds row col) then op
                   else
                     match AOC.matrix_nth matrix row col with
                     | '*' -> Some (row, col)

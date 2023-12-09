@@ -9,3 +9,4 @@ let read_lines file =
 
 let matrix_nth matrix x y = List.nth_exn (List.nth_exn matrix x) y
 let matrix_size matrix = (List.length matrix, List.length (List.hd_exn matrix))
+let matrix_in_bounds rows cols x y = x >= 0 && x < rows && y >= 0 && y < cols
