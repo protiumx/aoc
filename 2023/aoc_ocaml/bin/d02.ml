@@ -5,7 +5,7 @@ let part_1 =
   let green_cubes = 13 in
   let blue_cubes = 14 in
 
-  let lines = AOC.Files.read_lines "input/d02.in" in
+  let lines = AOC.read_lines "input/d02.in" in
 
   let is_valid_color_count n c =
     match c with
@@ -32,7 +32,7 @@ let part_1 =
   |> Fmt.pr "@.Part 1: %d@."
 
 let part_2 =
-  let lines = AOC.Files.read_lines "input/d02.in" in
+  let lines = AOC.read_lines "input/d02.in" in
 
   let color_count s =
     match String.split s ~on:' ' with

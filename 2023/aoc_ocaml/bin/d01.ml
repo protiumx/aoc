@@ -1,7 +1,7 @@
 open Core
 
 let part_1 =
-  let lines = AOC.Files.read_lines "input/d01.in" in
+  let lines = AOC.read_lines "input/d01.in" in
   List.fold lines ~init:0 ~f:(fun acc line ->
       let chars = String.to_list line in
       let numbers = List.filter chars ~f:Char.is_digit in
@@ -46,7 +46,7 @@ let rec find_digits str pos win_size =
           | None -> find_digits str pos (win_size + 1))
 
 let part_2 =
-  let lines = AOC.Files.read_lines "input/d01.in" in
+  let lines = AOC.read_lines "input/d01.in" in
   List.fold lines ~init:0 ~f:(fun acc line ->
       let digits = find_digits line 0 min_win in
       let h = List.hd_exn digits in
