@@ -1,5 +1,6 @@
 open Core
 
+let range_iter start stop f = List.range start stop |> List.iter ~f
 let directions = [ (0, 1); (0, -1); (1, 0); (-1, 0); (1, 1); (1, -1); (-1, 1); (-1, -1) ]
 
 let read_lines file =
