@@ -3,6 +3,9 @@ open Core
 let range_iter start stop f = List.range start stop |> List.iter ~f
 let directions = [ (0, 1); (0, -1); (1, 0); (-1, 0); (1, 1); (1, -1); (-1, 1); (-1, -1) ]
 
+let read_file file =
+  Stdio.In_channel.with_file file ~f:(fun channel -> In_channel.input_all channel)
+
 let read_lines file =
   Stdio.In_channel.with_file file ~f:(fun channel ->
       let x = In_channel.input_all channel in
