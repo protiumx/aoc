@@ -1,3 +1,4 @@
 profile = conventional
 margin = 100
 break-cases = toplevel
+break-infix = wrap-or-vertical
