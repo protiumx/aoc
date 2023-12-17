@@ -3,7 +3,7 @@
 open Core
 module CharMap = Map.Make (Char)
 
-let lines = AOC.read_lines "input/d07.test"
+let lines = AOC.read_lines "input/d07.in"
 
 let hand_scorer = function
   | [ _ ] -> 7
