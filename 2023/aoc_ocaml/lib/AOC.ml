@@ -18,3 +18,12 @@ let matrix_in_bounds rows cols x y = x >= 0 && x < rows && y >= 0 && y < cols
 let split_once ch str =
   let[@ocaml.warning "-8"] [ left; right ] = String.split ~on:ch str in
   (left, right)
+
+let rec gcd u v = if v <> 0 then gcd v (u mod v) else abs u
+
+let lcm m n =
+  match (m, n) with
+  | 0, _ | _, 0 -> 0
+  | m, n -> abs (m * n) / gcd m n
+
+let llcm list = List.fold list ~init:1 ~f:lcm
