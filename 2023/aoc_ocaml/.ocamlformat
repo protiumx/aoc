@@ -3,3 +3,4 @@ margin = 100
 break-cases = toplevel
 break-infix = wrap-or-vertical
 break-struct = natural
+if-then-else = fit-or-vertical
