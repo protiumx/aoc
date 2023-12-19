@@ -1,7 +1,9 @@
 open Core
+module CharSet = Set.Make (Char)
 
 let range_iter start stop f = List.range start stop |> List.iter ~f
 let directions = [ (0, 1); (0, -1); (1, 0); (-1, 0); (1, 1); (1, -1); (-1, 1); (-1, -1) ]
+let directions_4 = [ (0, 1); (0, -1); (1, 0); (-1, 0) ]
 
 let read_file file =
   Stdio.In_channel.with_file file ~f:(fun channel -> In_channel.input_all channel)
