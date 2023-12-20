@@ -38,19 +38,12 @@ let galaxies =
       in
       List.append points acc)
 
-let expand scale =
+let expand ratio =
   List.foldi galaxies ~init:0 ~f:(fun i acc (r1, c1) ->
       List.fold (List.sub galaxies ~pos:0 ~len:i) ~init:acc ~f:(fun acc' (r2, c2) ->
-          let acc =
-            AOC.range_fold
-              (min r1 r2, max r1 r2)
-              ~init:acc'
-              ~f:(fun r acc -> acc + if Set.mem empty_rows r then scale else 1)
-          in
-          AOC.range_fold
-            (min c1 c2, max c1 c2)
-            ~init:acc
-            ~f:(fun c acc -> acc + if Set.mem empty_cols c then scale else 1)))
+          let dx = List.count (List.range (min r1 r2) (max r1 r2)) ~f:(Set.mem empty_rows) in
+          let dy = List.count (List.range (min c1 c2) (max c1 c2)) ~f:(Set.mem empty_cols) in
+          acc' + (abs (r1 - r2) + abs (c1 - c2)) + ((dx + dy) * (ratio - 1))))
 
 let part_1 = expand 2 |> Fmt.pr "@.Part 1: %d@."
 let part_2 = expand 1000000 |> Fmt.pr "@.Part 2: %d@."
