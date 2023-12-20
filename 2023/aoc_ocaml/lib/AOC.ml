@@ -1,7 +1,7 @@
 open Core
 module CharSet = Set.Make (Char)
 
-let range_fold (start, stop) ~init ~(f : 'a -> 'a -> 'a) =
+let range_fold (start, stop) ~(init : 'b) ~(f : 'a -> 'b -> 'b) =
   let rec aux start stop f acc =
     if start = stop then
       acc
