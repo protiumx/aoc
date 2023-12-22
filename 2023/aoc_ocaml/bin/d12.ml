@@ -62,12 +62,12 @@ let part_2 =
   List.fold lines ~init:0 ~f:(fun acc line ->
       let condition, arrangement = AOC.split_once ' ' line in
       let conditions =
-        AOC.range_fold (0, 5) ~init:"" ~f:(fun _ acc ->
+        AOC.range_fold (0, 5) ~init:"" ~f:(fun acc ->
             String.append condition (if String.is_empty acc then acc else String.append "?" acc))
         |> String.to_list
       in
       let arrangements =
-        AOC.range_fold (0, 5) ~init:"" ~f:(fun _ acc ->
+        AOC.range_fold (0, 5) ~init:"" ~f:(fun acc ->
             String.append arrangement (if String.is_empty acc then acc else String.append "," acc))
         |> String.split ~on:','
         |> List.map ~f:Int.of_string
