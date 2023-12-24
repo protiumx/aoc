@@ -11,7 +11,7 @@ let range_foldi (start, stop) ~init ~f =
   aux start init
 
 let range_fold (start, stop) ~init ~f = range_foldi (start, stop) ~init ~f:(fun _ acc -> f acc)
-let range_iter start stop f = List.range start stop |> List.iter ~f
+let range_iter (start, stop) f = List.range start stop |> List.iter ~f
 let directions = [ (0, 1); (0, -1); (1, 0); (-1, 0); (1, 1); (1, -1); (-1, 1); (-1, -1) ]
 let directions_4 = [ (0, 1); (0, -1); (1, 0); (-1, 0) ]
 

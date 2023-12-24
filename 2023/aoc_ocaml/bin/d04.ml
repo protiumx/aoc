@@ -44,7 +44,9 @@ let part_2 =
   in
   let copies = Array.create ~len:(List.length lines) 1 in
   List.iteri scores ~f:(fun idx score ->
-      AOC.range_iter 1 (score + 1) (fun offset ->
+      AOC.range_iter
+        (1, score + 1)
+        (fun offset ->
           let card = offset + idx in
           copies.(card) <- copies.(card) + copies.(idx)));
   Fmt.pr "@.Part 2: %d@." (Array.reduce_exn copies ~f:( + ))
