@@ -11,6 +11,10 @@ let range_foldi (start, stop) ~init ~f =
   aux start init
 
 let range_fold (start, stop) ~init ~f = range_foldi (start, stop) ~init ~f:(fun _ acc -> f acc)
+
+let range_fold_while (start, stop) ~init ~f =
+  List.range start stop |> List.fold_until ~init ~f ~finish:(fun acc -> acc)
+
 let range_iter (start, stop) f = List.range start stop |> List.iter ~f
 let directions = [ (0, 1); (0, -1); (1, 0); (-1, 0); (1, 1); (1, -1); (-1, 1); (-1, -1) ]
 let directions_4 = [ (0, 1); (0, -1); (1, 0); (-1, 0) ]
@@ -38,4 +42,5 @@ let lcm m n =
   | 0, _ | _, 0 -> 0
   | m, n -> abs (m * n) / gcd m n
 
+(** applies least common multiple to a lis *)
 let llcm list = List.fold list ~init:1 ~f:lcm
