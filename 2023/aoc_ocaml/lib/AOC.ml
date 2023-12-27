@@ -16,6 +16,7 @@ let range_fold_while (start, stop) ~init ~f =
   List.range start stop |> List.fold_until ~init ~f ~finish:(fun acc -> acc)
 
 let range_iter (start, stop) f = List.range start stop |> List.iter ~f
+let range_inter (x1, y1) (x2, y2) = max x1 x2 <= min y1 y2
 let directions = [ (0, 1); (0, -1); (1, 0); (-1, 0); (1, 1); (1, -1); (-1, 1); (-1, -1) ]
 let directions_4 = [ (0, 1); (0, -1); (1, 0); (-1, 0) ]
 
