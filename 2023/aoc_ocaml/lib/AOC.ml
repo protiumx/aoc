@@ -1,5 +1,23 @@
 open Core
 module CharSet = Set.Make (Char)
+module IntSet = Hash_set.Make (Int)
+
+module IntPair = struct
+  module T = struct
+    type t = int * int
+
+    let compare x y = Tuple2.compare ~cmp1:Int.compare ~cmp2:Int.compare x y
+    let sexp_of_t = Tuple2.sexp_of_t Int.sexp_of_t Int.sexp_of_t
+    let t_of_sexp = Tuple2.t_of_sexp Int.t_of_sexp Int.t_of_sexp
+    let hash = Hashtbl.hash
+  end
+
+  include T
+  include Comparable.Make (T)
+end
+
+module PointHashtbl = Hashtbl.Make (IntPair)
+module PointSet = Hash_set.Make (IntPair)
 
 let range_foldi (start, stop) ~init ~f =
   let rec aux i acc =
@@ -15,7 +33,7 @@ let range_fold (start, stop) ~init ~f = range_foldi (start, stop) ~init ~f:(fun 
 let range_fold_while (start, stop) ~init ~f =
   List.range start stop |> List.fold_until ~init ~f ~finish:(fun acc -> acc)
 
-let range_iter (start, stop) f = List.range start stop |> List.iter ~f
+let range_iter ?(stride = 1) (start, stop) f = List.range ~stride start stop |> List.iter ~f
 let range_inter (x1, y1) (x2, y2) = max x1 x2 <= min y1 y2
 let directions = [ (0, 1); (0, -1); (1, 0); (-1, 0); (1, 1); (1, -1); (-1, 1); (-1, -1) ]
 let directions_4 = [ (0, 1); (0, -1); (1, 0); (-1, 0) ]

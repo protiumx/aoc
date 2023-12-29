@@ -9,26 +9,10 @@ let rows = Array.length matrix
 let cols = Array.length matrix.(0)
 let in_bounds = AOC.matrix_in_bounds rows cols
 
-module IntPair = struct
-  module T = struct
-    type t = int * int
-
-    let compare x y = Tuple2.compare ~cmp1:Int.compare ~cmp2:Int.compare x y
-    let sexp_of_t = Tuple2.sexp_of_t Int.sexp_of_t Int.sexp_of_t
-    let t_of_sexp = Tuple2.t_of_sexp Int.t_of_sexp Int.t_of_sexp
-    let hash = Hashtbl.hash
-  end
-
-  include T
-  include Comparable.Make (T)
-end
-
-module PointSet = Hash_set.Make (IntPair)
-
 let walk_gardens steps (sx, sy) =
   let q = Queue.of_list [ (sx, sy, steps) ] in
-  let seen = PointSet.create () in
-  let points = PointSet.create () in
+  let seen = AOC.PointSet.create () in
+  let points = AOC.PointSet.create () in
   Hash_set.add seen (sx, sy);
 
   let rec aux () =
