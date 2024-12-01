@@ -3,6 +3,6 @@ defmodule Mix.Tasks.Aoc.Run do
 
   @impl Mix.Task
   def run(_) do
-    IO.puts(AdventOfCode.day_01())
+    IO.puts(AdventOfCode.run())
   end
 end

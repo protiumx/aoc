@@ -13,6 +13,10 @@ defmodule AdventOfCode.Input do
     end
   end
 
+  def get_test!(day) do
+    File.read!(cache_path(day) <> ".test")
+  end
+
   def delete!(day), do: File.rm!(cache_path(day))
 
   defp in_cache?(day), do: File.exists?(cache_path(day))
