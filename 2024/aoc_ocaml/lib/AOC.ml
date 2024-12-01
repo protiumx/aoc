@@ -37,14 +37,14 @@ let range_fold_while (start, stop) ~init ~f =
   List.range start stop |> List.fold_until ~init ~f ~finish:(fun acc -> acc)
 
 let range_iter ?(stride = 1) (start, stop) f = List.range ~stride start stop |> List.iter ~f
-let range_inter (x1, y1) (x2, y2) = max x1 x2 <= min y1 y2
+let range_intersection (x1, y1) (x2, y2) = max x1 x2 <= min y1 y2
 let directions = [ (0, 1); (0, -1); (1, 0); (-1, 0); (1, 1); (1, -1); (-1, 1); (-1, -1) ]
 let directions_4 = [ (0, 1); (0, -1); (1, 0); (-1, 0) ]
 
 let read_file file =
   Stdio.In_channel.with_file file ~f:(fun channel -> In_channel.input_all channel)
 
-let read_lines file =
+let read_lines_from file =
   Stdio.In_channel.with_file file ~f:(fun channel ->
       let x = In_channel.input_all channel in
       String.split_lines x)
@@ -68,13 +68,25 @@ let lcm m n =
 let llcm list = List.fold list ~init:1 ~f:lcm
 let input_path day = Filename.concat "../input" (Printf.sprintf "%d.txt" day)
 
+(** [numbers_from_string s] collects all numbers in s *)
+let numbers_from_string (s : string) =
+  let zero = int_of_char '0' in
+  let rec inner s current =
+    match s with
+    | [] -> [ current ]
+    | h :: t when Char.is_digit h -> inner t ((current * 10) + (int_of_char h - zero))
+    | _ :: t when current > 0 -> current :: inner t 0
+    | _ :: t -> inner t current
+  in
+  inner (String.to_list s) 0
+
 let download_input day =
   let session = Printf.sprintf "session=%s" (Sys.getenv_exn "aoc_session") in
   let body =
     Lwt_main.run
       ( Client.get
           ~headers:(Http.Header.init_with "cookie" session)
-          (Uri.of_string (Printf.sprintf "https://adventofcode.com/2023/day/%d/input" day))
+          (Uri.of_string (Printf.sprintf "https://adventofcode.com/2024/day/%d/input" day))
       >>= fun (_, body) -> body |> Cohttp_lwt.Body.to_string )
   in
   Core.Out_channel.write_all ~data:body (input_path day);
@@ -85,3 +97,5 @@ let get_input day =
   match Stdsys.file_exists path with
   | true -> read_file path
   | false -> download_input day
+
+let get_test_input day = read_file (input_path day ^ ".test")

@@ -1,6 +1,10 @@
 defmodule AdventOfCode do
-  def day_01 do
-    input = AdventOfCode.Input.get!("1")
-    AdventOfCode.Solutions.Day01.part_01(input)
+  alias AdventOfCode.Solutions
+  alias AdventOfCode.Input
+
+  def run do
+    parsed = Input.get!(1) |> Solutions.Day01.parse()
+    IO.puts("Part 1: #{Solutions.Day01.part_01(parsed)}\n")
+    IO.puts("Part 2: #{Solutions.Day01.part_02(parsed)}\n")
   end
 end
