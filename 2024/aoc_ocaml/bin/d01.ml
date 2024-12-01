@@ -9,8 +9,8 @@ let part_1 =
         let[@warning "-partial-match"] [ l; r ] = AOC.numbers_from_string line in
         (l :: left, r :: right))
   in
-  let left = List.sort ~compare:(fun a b -> if a >= b then 1 else -1) left in
-  let right = List.sort ~compare:(fun a b -> if a >= b then 1 else -1) right in
+  let left = List.sort ~compare left in
+  let right = List.sort ~compare right in
 
   List.foldi left ~init:0 ~f:(fun i acc l -> acc + Int.abs (l - List.nth_exn right i))
   |> Fmt.pr "Part 1: %d@."
