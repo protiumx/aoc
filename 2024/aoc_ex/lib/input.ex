@@ -21,7 +21,7 @@ defmodule AdventOfCode.Input do
 
   defp in_cache?(day), do: File.exists?(cache_path(day))
 
-  defp cache_path(day), do: Path.join("../input", "#{day}.txt")
+  defp cache_path(day), do: Path.join("../input", "#{day}.in")
 
   defp store_in_cache!(day, input) do
     path = cache_path(day)
@@ -35,7 +35,7 @@ defmodule AdventOfCode.Input do
     HTTPoison.start()
 
     {:ok, %{status_code: 200, body: input}} =
-      HTTPoison.get("https://adventofcode.com/2023/day/#{day}/input", headers())
+      HTTPoison.get("https://adventofcode.com/2024/day/#{day}/input", headers())
 
     store_in_cache!(day, input)
 

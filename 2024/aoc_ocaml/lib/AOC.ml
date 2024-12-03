@@ -33,13 +33,27 @@ let range_foldi (start, stop) ~init ~f =
 
 let range_fold (start, stop) ~init ~f = range_foldi (start, stop) ~init ~f:(fun _ acc -> f acc)
 
-let range_fold_while (start, stop) ~init ~f =
+(** iterate range until a stop or finish. [stop] is not inclusive *)
+let range_fold_until (start, stop) ~init ~f =
   List.range start stop |> List.fold_until ~init ~f ~finish:(fun acc -> acc)
 
 let range_iter ?(stride = 1) (start, stop) f = List.range ~stride start stop |> List.iter ~f
 let range_intersection (x1, y1) (x2, y2) = max x1 x2 <= min y1 y2
+let range_contains (x, y) v = x <= v && v <= y
 let directions = [ (0, 1); (0, -1); (1, 0); (-1, 0); (1, 1); (1, -1); (-1, 1); (-1, -1) ]
 let directions_4 = [ (0, 1); (0, -1); (1, 0); (-1, 0) ]
+
+let print_numbers l =
+  List.iter l ~f:(Fmt.pr "%d ");
+  Fmt.pr "@."
+
+let print_strings l =
+  List.iter l ~f:(Fmt.pr "%s ");
+  Fmt.pr "@."
+
+let print_chars l =
+  List.iter l ~f:(Fmt.pr "%c ");
+  Fmt.pr "@."
 
 let read_file file =
   Stdio.In_channel.with_file file ~f:(fun channel -> In_channel.input_all channel)
@@ -52,6 +66,12 @@ let read_lines_from file =
 let matrix_nth matrix x y = List.nth_exn (List.nth_exn matrix x) y
 let matrix_size matrix = (List.length matrix, List.length (List.hd_exn matrix))
 let matrix_in_bounds rows cols x y = x >= 0 && x < rows && y >= 0 && y < cols
+
+let rec window l n =
+  match l with
+  | [] -> []
+  | _ :: xs when List.length l >= n -> List.take l n :: window xs n
+  | _ -> []
 
 let split_once ch str =
   let[@ocaml.warning "-8"] [ left; right ] = String.split ~on:ch str in
@@ -66,19 +86,12 @@ let lcm m n =
 
 (* applies least common multiple to a list *)
 let llcm list = List.fold list ~init:1 ~f:lcm
-let input_path day = Filename.concat "../input" (Printf.sprintf "%d.txt" day)
 
-(** [numbers_from_string s] collects all numbers in s *)
+(** [numbers_from_string s] collects all space-separated numbers in s *)
 let numbers_from_string (s : string) =
-  let zero = int_of_char '0' in
-  let rec inner s current =
-    match s with
-    | [] -> [ current ]
-    | h :: t when Char.is_digit h -> inner t ((current * 10) + (int_of_char h - zero))
-    | _ :: t when current > 0 -> current :: inner t 0
-    | _ :: t -> inner t current
-  in
-  inner (String.to_list s) 0
+  String.split s ~on:' ' |> List.filter ~f:(fun n -> String.(n <> "")) |> List.map ~f:int_of_string
+
+let input_path day = Filename.concat "../input" (Printf.sprintf "%d.in" day)
 
 let download_input day =
   let session = Printf.sprintf "session=%s" (Sys.getenv_exn "aoc_session") in
@@ -90,6 +103,7 @@ let download_input day =
       >>= fun (_, body) -> body |> Cohttp_lwt.Body.to_string )
   in
   Core.Out_channel.write_all ~data:body (input_path day);
+  Printf.printf "Input %d downloaded\n" day;
   body
 
 let get_input day =
