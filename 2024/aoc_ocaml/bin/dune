@@ -1,4 +1,4 @@
 (executables
- (public_names d01 d02)
- (names d01 d02)
+ (public_names d01 d02 d03)
+ (names d01 d02 d03)
  (libraries AOC fmt))
