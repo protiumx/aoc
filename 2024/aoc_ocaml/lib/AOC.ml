@@ -43,6 +43,14 @@ let range_contains (x, y) v = x <= v && v <= y
 let directions = [ (0, 1); (0, -1); (1, 0); (-1, 0); (1, 1); (1, -1); (-1, 1); (-1, -1) ]
 let directions_4 = [ (0, 1); (0, -1); (1, 0); (-1, 0) ]
 
+let load_matrix_from_lines ?(f = fun a -> a) lines =
+  let rows = List.length lines in
+  let cols = String.length (List.hd_exn lines) in
+  let matrix = Array.make_matrix ~dimx:rows ~dimy:cols Char.min_value in
+
+  lines |> List.iteri ~f:(fun i line -> String.iteri line ~f:(fun j ch -> matrix.(i).(j) <- f ch));
+  (matrix, rows, cols)
+
 let print_numbers l =
   List.iter l ~f:(Fmt.pr "%d ");
   Fmt.pr "@."
