@@ -1,6 +1,6 @@
 defmodule AdventOfCode.Solutions.Day04 do
   def parse(input) do
-    AdventOfCode.Grid.load_from_text(input, & &1)
+    AdventOfCode.Grid.load_from_text(input) |> elem(0)
   end
 
   def part_01(grid) do

@@ -51,9 +51,8 @@ let load_matrix_from_lines ?(f = fun a -> a) lines =
   lines |> List.iteri ~f:(fun i line -> String.iteri line ~f:(fun j ch -> matrix.(i).(j) <- f ch));
   (matrix, rows, cols)
 
-let print_numbers l =
-  List.iter l ~f:(Fmt.pr "%d ");
-  Fmt.pr "@."
+let pp_list = Fmt.Dump.list Fmt.int
+let print_numbers = Fmt.pr "%a" pp_list
 
 let print_strings l =
   List.iter l ~f:(Fmt.pr "%s ");

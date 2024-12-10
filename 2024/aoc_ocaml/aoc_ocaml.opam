@@ -10,6 +10,10 @@ bug-reports: "https://github.com/username/reponame/issues"
 depends: [
   "ocaml"
   "dune" {>= "3.12"}
+  "core"
+  "fmt"
+  "cohttp-lwt-unix"
+  "domainslib" {>= "0.5.1"}
   "odoc" {with-doc}
 ]
 build: [

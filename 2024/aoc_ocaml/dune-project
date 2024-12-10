@@ -18,6 +18,6 @@
 (package
  (name aoc_ocaml)
  (synopsis "advent of code")
- (depends ocaml dune))
+ (depends ocaml dune core fmt cohttp-lwt-unix (domainslib (>= 0.5.1))))
 
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project

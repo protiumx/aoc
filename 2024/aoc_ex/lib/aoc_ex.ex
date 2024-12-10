@@ -1,28 +1,4 @@
 defmodule AdventOfCode do
-  alias AdventOfCode.Solutions
-  alias AdventOfCode.Input
-
-  def run do
-    # parsed = Input.get!(1) |> Solutions.Day01.parse()
-    # IO.puts("Part 1: #{Solutions.Day01.part_01(parsed)}\n")
-    # IO.puts("Part 2: #{Solutions.Day01.part_02(parsed)}\n")
-    #
-    # parsed = Input.get!(2) |> Solutions.Day02.parse()
-    # IO.puts("Part 1: #{Solutions.Day02.part_01(parsed)}\n")
-    # IO.puts("Part 2: #{Solutions.Day02.part_02(parsed)}\n")
-    #
-    # parsed = Input.get!(3) |> Solutions.Day03.parse()
-    # IO.puts("Part 1: #{Solutions.Day03.part_01(parsed)}\n")
-    # IO.puts("Part 1: #{Solutions.Day03.part_02(parsed)}\n")
-    #
-    # parsed = Input.get_test!(4) |> Solutions.Day04.parse()
-    # IO.puts("Part 1: #{Solutions.Day04.part_01(parsed)}\n")
-    # IO.puts("Part 2: #{Solutions.Day04.part_02(parsed)}\n")
-
-    parsed = Input.get_test!(5) |> Solutions.Day05.parse()
-    IO.puts("Part 1: #{Solutions.Day05.part_01(parsed)}\n")
-    IO.puts("Part 2: #{Solutions.Day05.part_02(parsed)}\n")
-  end
 end
 
 defmodule AdventOfCode.Grid do
@@ -35,15 +11,23 @@ defmodule AdventOfCode.Grid do
   def dirs_cross, do: @dirs_cross
 
   @doc """
-  Returns %{{r, c}: v}
+  Returns {%{{r, c}: v}, {rows, cols}}
   """
-  def load_from_text(s, transform) when is_function(transform, 1) do
+  def load_from_text(s, transform \\ &{:ok, &1}) do
     s = String.split(s, "\n", trim: true) |> Enum.map(&String.to_charlist/1)
 
-    for {row, r} <- Enum.with_index(s),
-        {col, c} <- Enum.with_index(row),
-        into: %{},
-        do: {{r, c}, transform.(col)}
+    g =
+      for {row, r} <- Enum.with_index(s),
+          {col, c} <- Enum.with_index(row),
+          reduce: %{} do
+        acc ->
+          case transform.(col) do
+            {:ok, x} -> Map.put(acc, {r, c}, x)
+            _ -> acc
+          end
+      end
+
+    {g, {length(s), length(Enum.at(s, 0))}}
   end
 
   def in_bounds(grid, {x, y}),

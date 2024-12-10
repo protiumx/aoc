@@ -1,4 +1,5 @@
 (executables
- (public_names d01 d02 d03 d04 d05)
- (names d01 d02 d03 d04 d05)
- (libraries AOC fmt))
+ (public_names d01 d02 d03 d04 d05 d06 d06b)
+ (names d01 d02 d03 d04 d05 d06 d06b)
+ (libraries AOC base fmt domainslib)
+ (modes (byte exe) (native shared_object)))
