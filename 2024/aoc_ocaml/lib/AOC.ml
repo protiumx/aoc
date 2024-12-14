@@ -94,9 +94,18 @@ let lcm m n =
 (* applies least common multiple to a list *)
 let llcm list = List.fold list ~init:1 ~f:lcm
 
-(** [numbers_from_string s] collects all space-separated numbers in s *)
+(** [numbers_from_string s] collects all space-separated numbers in s discarding non-digit chars *)
 let numbers_from_string (s : string) =
-  String.split s ~on:' ' |> List.filter ~f:(fun n -> String.(n <> "")) |> List.map ~f:int_of_string
+  let zero = int_of_char '0' in
+  let rec inner rem acc =
+    match rem with
+    | [] -> [ acc ]
+    | h :: t when Char.is_digit h -> inner t ((acc * 10) + (int_of_char h - zero))
+    (* reached a non digit, collect current acc *)
+    | _ :: t when acc > 0 -> acc :: inner t 0
+    | _ :: t -> inner t acc
+  in
+  inner (String.to_list s) 0
 
 let input_path day = Filename.concat "../input" (Printf.sprintf "%d.in" day)
 
